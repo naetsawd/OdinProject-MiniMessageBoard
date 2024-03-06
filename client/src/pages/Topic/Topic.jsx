@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Topic() {
@@ -7,6 +7,8 @@ function Topic() {
 	const [topic, setTopic] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
@@ -22,7 +24,7 @@ function Topic() {
 	}, [id]);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div className="loading-spinner"></div>;
 	}
 
 	if (error) {
@@ -31,6 +33,7 @@ function Topic() {
 
 	return (
 		<div>
+            <div onClick={() => {navigate("/")}}>Home</div>
 			<h2>{topic.title}</h2>
 			<p>{topic.description}</p>
 			<p>{topic.createdAt}</p>

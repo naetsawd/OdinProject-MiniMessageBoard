@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/AllTopics.css"
+import TopicModal from "../../components/TopicModal/TopicModal.jsx";
+import "./AllTopics.css";
 
 function AllMessages() {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -27,18 +29,34 @@ function AllMessages() {
 
 	if (loading) {
 		return <div className="loading-spinner"></div>;
-	} else if (error) {
+	}
+
+	if (error) {
 		return <div>Error: {error.message}</div>;
 	}
 
 	return (
 		<div>
+			<div
+				onClick={() => {
+					setShowModal(true);
+				}}
+			>
+				Add Topic
+			</div>
 			{data.map((topic) => (
 				<div key={topic._id}>
-					<h2 onClick={() => {navigate(`/${topic._id}`)}}>{topic.title}</h2>
+					<h2
+						onClick={() => {
+							navigate(`/${topic._id}`);
+						}}
+					>
+						{topic.title}
+					</h2>
 					<p>{topic.description}</p>
 				</div>
 			))}
+			{showModal && <TopicModal />}
 		</div>
 	);
 }

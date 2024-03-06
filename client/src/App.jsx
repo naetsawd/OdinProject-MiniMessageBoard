@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import AllTopics from "./pages/AllTopics.jsx";
-import Topic from "./pages/Topic.jsx";
+import AllTopics from "./pages/AllTopics/AllTopics.jsx";
+import Topic from "./pages/Topic/Topic.jsx";
 
 function App() {
 	return (
