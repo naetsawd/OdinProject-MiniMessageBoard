@@ -53,11 +53,14 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	try {
-		const topics = await Topic.find({ _id: req.params.id });
-		res.status(200).json(topics);
+		const topic = await Topic.findById(req.params.id);
+		if (!topic) {
+			return res.status(404).json({ error: "Topic not found" });
+		}
+		res.status(200).json(topic);
 	} catch (error) {
-		console.error("Error fetching topics:", error);
-		res.status(500).json({ error: "Unable to fetch topics" });
+		console.error("Error fetching topic:", error);
+		res.status(500).json({ error: "Unable to fetch topic" });
 	}
 });
 

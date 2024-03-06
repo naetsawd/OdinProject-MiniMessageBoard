@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../styles/AllTopics.css"
 
 function AllMessages() {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
@@ -31,15 +35,8 @@ function AllMessages() {
 		<div>
 			{data.map((topic) => (
 				<div key={topic._id}>
-					<h2>{topic.title}</h2>
+					<h2 onClick={() => {navigate(`/${topic._id}`)}}>{topic.title}</h2>
 					<p>{topic.description}</p>
-					<ul>
-						{topic.messages.map((message) => (
-							<li key={message._id}>
-								<strong>{message.author}: </strong> {message.message}
-							</li>
-						))}
-					</ul>
 				</div>
 			))}
 		</div>
